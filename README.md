@@ -10,10 +10,11 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Códigos utilizados
 
    ```bash
-   npx expo start
+   npx create-expo-app@latest
+   node scripts/reset-project.js
    ```
 
 In the output, you'll find options to open the app in a
