@@ -15,7 +15,6 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    ```bash
    npx create-expo-app@latest
    node scripts/reset-project.js
-   npx expo install expo-linear-gradient
    ```
 
 In the output, you'll find options to open the app in a
