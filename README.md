@@ -1,43 +1,23 @@
-# Projeto Climapp☀️ 
-Projeto desenvolvido durante curso da Alura
+# 🌤️ Climapp
 
-## Get started
-2. Códigos utilizados
+**Climapp** é um aplicativo de clima desenvolvido durante o curso da **Alura**, utilizando o framework **Expo** com **React Native**.
 
-   ```bash
-   npx create-expo-app@latest
-   node scripts/reset-project.js
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## 🚀 Começando
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Pré-requisitos
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Antes de começar, certifique-se de ter instalado:
 
-## Get a fresh project
+- [Node.js](https://nodejs.org/)
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)
+- [Git](https://git-scm.com/)
+- Um emulador Android/iOS ou o app [Expo Go](https://expo.dev/go)
 
-When you're ready, run:
+### Instalação
+
+Clone o repositório e crie o projeto:
 
 ```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+npx create-expo-app@latest
