@@ -1,5 +1,6 @@
 import { StyleSheet, Image, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient'
+import MaterialIcon from '@expo/vector-icons/MaterialIcons'
 
 export default function Index() {
   return (
@@ -9,10 +10,11 @@ export default function Index() {
     >
       <Image source={require("../assets/images/Logo.png")}/>
       <Image source={require("../assets/images/Weather.png")}></Image>
-      <Text>Boas-vindas!</Text>
+      <Text style={styles.title}>Boas-vindas!</Text>
 
-      <TouchableOpacity>
-        <Text>Entrar</Text>
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonTitle}>Entrar</Text>
+        <MaterialIcon name="arrow-forward" size={24} color={'#01080E'}/>
       </TouchableOpacity>
     </LinearGradient>
   );
@@ -21,5 +23,29 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 64,
+    paddingVertical: 79,
+    paddingHorizontal: 32,
   },
+  title: {
+    fontSize: 25,
+    color: '#FFF',
+  },
+  button: {
+    width: '100%',
+    height: 40,
+    backgroundColor: '#7693FF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 32,
+    flexDirection: 'row',
+    gap: 8,
+  },
+  buttonTitle: {
+    color: '#01080E',
+    fontSize: 20,
+    fontWeight: 600,
+  }
 })
