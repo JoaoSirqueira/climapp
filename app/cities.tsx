@@ -1,17 +1,40 @@
-import { StyleSheet, View, Text, Image, ScrollView } from "react-native"
+import { StyleSheet, View, Text, Image, ScrollView, TextInput } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import citiesData from '../data/cities.json'
+import { useEffect, useState } from "react"
 
 const Cities = () => {
+    const [search, setSearch] = useState('');
+    const [filteredCities, setFilteredCities] = useState(citiesData)
+
+    useEffect(() => {
+        const newFilteredCities = citiesData.filter((city) =>
+            city.city.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+        );
+
+        setFilteredCities(newFilteredCities)
+    }, [search])
+
     return (
         <LinearGradient
             colors={["#00457D", "#05051F"]}
             style={styles.container}
         >
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Digite a cidade"
+                    placeholderTextColor={'#FFF'}
+                    value={search}
+                    onChangeText={(value) => setSearch(value)}
+                />
+                <MaterialIcons name='search' size={18} color={'#FFF'} />
+            </View>
             <ScrollView>
                 <View style={styles.scrollList}>
                     {
-                        citiesData.map(city => (
+                        filteredCities.map(city => (
                             <View key={city.city} style={styles.listItem}>
                                 <Image source={require('../assets/images/Clouds.png')} />
                                 <Text style={styles.cityName}>{city.city.replace(",", " - ")}</Text>
@@ -30,6 +53,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 16,
         gap: 16,
+        paddingTop: 60,
     },
     scrollList: {
         gap: 16,
@@ -57,6 +81,21 @@ const styles = StyleSheet.create({
     cityImage: {
         width: 27,
         height: 24,
+    },
+    inputContainer: {
+        height: 'auto',
+        width: '100%',
+        backgroundColor: 'rgba(255, 255, 255, 0.15)',
+        borderRadius: 24,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16,
+    },
+    input: {
+        color: '#FFF',
+        fontSize: 16,
+        fontFamily: 'Montserrat_500Medium',
     }
 })
 
