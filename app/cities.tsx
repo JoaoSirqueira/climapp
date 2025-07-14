@@ -12,9 +12,9 @@ const Cities = () => {
                 <View style={styles.scrollList}>
                     {
                         citiesData.map(city => (
-                            <View style={styles.listItem}>
+                            <View key={city.city} style={styles.listItem}>
                                 <Image source={require('../assets/images/Clouds.png')} />
-                                <Text style={styles.cityName}>{city.city}</Text>
+                                <Text style={styles.cityName}>{city.city.replace(",", " - ")}</Text>
                                 <Text style={styles.cityTemp}>{city.temp}º</Text>
                             </View>
                         ))
