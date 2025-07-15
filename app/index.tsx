@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Image, Text, TouchableOpacity, StatusBar } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient'
 import MaterialIcon from '@expo/vector-icons/MaterialIcons'
 import { useRouter } from "expo-router";

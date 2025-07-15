@@ -7,24 +7,49 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const CityDetails = () => {
     const router = useRouter();
     const searchParams = useLocalSearchParams();
-    const [cityDetails, setCityDetails] = useState(null)
+    const cityName = Array.isArray(searchParams.cityName)
+        ? searchParams.cityName[0]
+        : searchParams.cityName;
+
+    type ForecastItem = {
+        date: string;
+        weekday: string;
+        min: number;
+        max: number;
+        description: string;
+    };
+
+    type CityDetailsType = {
+        city: string;
+        date: string;
+        temp: number;
+        description: string;
+        humidity: number;
+        forecast: ForecastItem[];
+    };
+
+    const [cityDetails, setCityDetails] = useState<CityDetailsType | null>(null);
+
 
     const handleData = async () => {
         try {
             const response = await fetch('https://climapp-api.vercel.app/api')
             const responseJSON = await response.json();
-
-            const city = responseJSON.find(
-                (cityData) => cityData.city === searchParams.cityName
+            const city = responseJSON.find((cityData: CityDetailsType) =>
+                cityData.city.toLowerCase() === cityName?.toLowerCase()
             );
 
             setCityDetails(city);
+            if (!city) {
+                console.warn("Cidade não encontrada:", cityName);
+            }
+
         } catch (e) {
             console.log(e)
         }
     }
 
-    const handleWeekday = (date) => {
+    const handleWeekday = (date: string) => {
         switch (date) {
             case "Seg":
                 return "Segunda";
@@ -96,26 +121,28 @@ const CityDetails = () => {
                     </View>
                 </View>
             </View>
-                <View style={styles.footer}>
-                    {cityDetails.forecast.slice(1, 4).map((item, index) => (
-                        <View key={item.day} style={styles.footerCard}>
-                            <View>
-                                <Text style={styles.footerCardTitle}>
-                                    {index === 0 ? "Amanhã" : handleWeekday(item.weekday)}
-                                </Text>
-                                <Text style={styles.footerCardSubTitle}>{item.date}</Text>
-                            </View>
-                            <Image
-                                source={require("../assets/images/Clouds.png")}
-                                style={styles.footerCardImage}
-                            />
+            <View style={styles.footer}>
+                {cityDetails.forecast.slice(1, 4).map((item, index) => (
+                    <View key={index} style={styles.footerCard}>
 
-                            <Text style={styles.footerCardTemperature}>
-                                {item.min}/{item.max}º
+
+                        <View>
+                            <Text style={styles.footerCardTitle}>
+                                {index === 0 ? "Amanhã" : handleWeekday(item.weekday)}
                             </Text>
+                            <Text style={styles.footerCardSubTitle}>{item.date}</Text>
                         </View>
-                    ))}
-                </View>
+                        <Image
+                            source={require("../assets/images/Clouds.png")}
+                            style={styles.footerCardImage}
+                        />
+
+                        <Text style={styles.footerCardTemperature}>
+                            {item.min}/{item.max}º
+                        </Text>
+                    </View>
+                ))}
+            </View>
         </LinearGradient>
     );
 }
@@ -131,6 +158,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: "100%",
+        marginTop: 20,
     },
     headerIcon: {
         position: 'absolute',
