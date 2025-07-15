@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 16,
-        gap: 16,
-        paddingTop: 60,
+        gap: 40,
+        paddingTop: 40,
     },
     scrollList: {
         gap: 16,

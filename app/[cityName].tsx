@@ -24,17 +24,33 @@ const CityDetails = () => {
         }
     }
 
+    const handleWeekday = (date) => {
+        switch (date) {
+            case "Seg":
+                return "Segunda";
+            case "Ter":
+                return "Terça-feira";
+            case "Qua":
+                return "Quarta-feira";
+            case "Qui":
+                return "Quinta-feira";
+            case "Sex":
+                return "Sexta-feira";
+            case "Sab":
+                return "Sábado";
+            case "Dom":
+                return "Domingo";
+        }
+    };
+
     useEffect(() => {
         handleData()
     }, [])
 
     if (!cityDetails) {
         return (
-            <LinearGradient
-                colors={["#00457D", "#05051F"]}
-                style={styles.container}
-            ></LinearGradient>
-        )
+            <LinearGradient colors={["#00457d", "#05051f"]} style={styles.container} />
+        );
     }
 
     return (
@@ -43,7 +59,7 @@ const CityDetails = () => {
             style={styles.container}
         >
             <View style={styles.headerContainer}>
-                <TouchableOpacity onPress={() => {router.back()}} style={styles.headerIcon}>
+                <TouchableOpacity onPress={() => { router.back() }} style={styles.headerIcon}>
                     <MaterialIcons
                         name="chevron-left"
                         size={24} color={'#FFF'}
@@ -79,8 +95,27 @@ const CityDetails = () => {
 
                     </View>
                 </View>
-
             </View>
+                <View style={styles.footer}>
+                    {cityDetails.forecast.slice(1, 4).map((item, index) => (
+                        <View key={item.day} style={styles.footerCard}>
+                            <View>
+                                <Text style={styles.footerCardTitle}>
+                                    {index === 0 ? "Amanhã" : handleWeekday(item.weekday)}
+                                </Text>
+                                <Text style={styles.footerCardSubTitle}>{item.date}</Text>
+                            </View>
+                            <Image
+                                source={require("../assets/images/Clouds.png")}
+                                style={styles.footerCardImage}
+                            />
+
+                            <Text style={styles.footerCardTemperature}>
+                                {item.min}/{item.max}º
+                            </Text>
+                        </View>
+                    ))}
+                </View>
         </LinearGradient>
     );
 }
@@ -164,7 +199,44 @@ const styles = StyleSheet.create({
     },
     rowBox: {
         gap: 8,
-    }
+    },
+    footer: {
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        gap: 8,
+    },
+    footerCard: {
+        backgroundColor: "rgba(255, 255, 255, 0.15)",
+        borderRadius: 16,
+        paddingVertical: 16,
+        paddingHorizontal: 8,
+        alignItems: "center",
+        gap: 16,
+        flex: 1,
+    },
+    footerCardTitle: {
+        fontSize: 16,
+        color: "#fff",
+        textAlign: "center",
+        fontFamily: "Montserrat_500Medium",
+    },
+    footerCardSubTitle: {
+        fontSize: 13,
+        color: "#fff",
+        textAlign: "center",
+        fontFamily: "Montserrat_500Medium",
+    },
+    footerCardTemperature: {
+        fontSize: 20,
+        color: "#fff",
+        textAlign: "center",
+        fontFamily: "Montserrat_600SemiBold",
+    },
+    footerCardImage: {
+        width: 26,
+        height: 26,
+    },
 })
 
 export default CityDetails;
