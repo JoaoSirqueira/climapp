@@ -39,7 +39,7 @@ const Cities = () => {
                         filteredCities.map(city => (
                             <TouchableOpacity onPress={() => { router.push(`/${city.city}`)}}
                             key={city.city} style={styles.listItem}>
-                                <Image source={require('../assets/images/Clouds.png')} />
+                                <Image style={styles.cityImage} source={require('../assets/images/Clouds.png')} />
                                 <Text style={styles.cityName}>{city.city.replace(",", " - ")}</Text>
                                 <Text style={styles.cityTemp}>{city.temp}º</Text>
                             </TouchableOpacity>

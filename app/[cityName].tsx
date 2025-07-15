@@ -1,7 +1,8 @@
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 const CityDetails = () => {
     const searchParams = useLocalSearchParams();
@@ -27,14 +28,34 @@ const CityDetails = () => {
     }, [])
 
     return (
-            <LinearGradient
-                colors={["#00457D", "#05051F"]}
-                style={styles.container}
-            >
-                <View style={styles.headerContainer}>
-                    <Text style={styles.headerTitle}>{cityDetails ? cityDetails.city : 'Carregando...'}</Text>
+        <LinearGradient
+            colors={["#00457D", "#05051F"]}
+            style={styles.container}
+        >
+            <View style={styles.headerContainer}>
+                <MaterialIcons
+                    name="chevron-left"
+                    size={24} color={'#FFF'}
+                    style={styles.headerIcon}
+                />
+                <Text style={styles.headerTitle}>{cityDetails ? cityDetails.city : 'Carregando...'}</Text>
+            </View>
+
+            <View style={styles.card}>
+                <View style={styles.cardHeader}>
+                    <Text style={styles.cardHeaderTitle}>Hoje</Text>
+                    <Text style={styles.cardHeaderTitle}>{cityDetails ? cityDetails.date : 'Carregando...'}</Text>
                 </View>
-            </LinearGradient>
+
+                <View style={styles.cardBox}>
+                    <Image style={styles.cardImage} source={require('../assets/images/Clouds.png')}/>
+                    <View>
+                        <Text style={styles.cardTemperature}>{cityDetails ? cityDetails.temp : 'Carregando...'}º</Text>
+                        <Text style={styles.cardDescription}>{cityDetails ? cityDetails.description : 'Carregando...'}</Text>
+                    </View>
+                </View>
+            </View>
+        </LinearGradient>
     );
 }
 
@@ -43,18 +64,62 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 16,
         paddingTop: 40,
+        gap: 40,
     },
     headerContainer: {
         alignItems: 'center',
         justifyContent: 'center',
         width: "100%",
     },
+    headerIcon: {
+        position: 'absolute',
+        left: 0,
+    },
     headerTitle: {
         color: '#FFF',
         fontSize: 20,
         fontFamily: 'Montserrat_600SemiBold',
         textAlign: 'center'
-    }
+    },
+    card: {
+        width: '100%',
+        borderRadius: 24,
+        backgroundColor: "#4463D5",
+        padding: 16,
+        gap: 24,
+    },
+    cardHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 8,
+    },
+    cardHeaderTitle: {
+        color: '#FFF',
+        fontSize: 16,
+        fontFamily: 'Montserrat_600SemiBold',
+    },
+    cardImage: {
+        width: 72,
+        height: 64,
+    },
+    cardTemperature: {
+        color: '#FFF',
+        fontSize: 43,
+        fontFamily: 'Montserrat_700Bold',
+        textAlign: 'center',
+    },
+    cardDescription: {
+        color: '#FFF',
+        fontSize: 13,
+        fontFamily: 'Montserrat_400Regular',
+        textAlign: 'center',
+    },
+    cardBox: {
+        alignItems: 'center',
+        justifyContent: 'center',
+
+    },
 })
 
 export default CityDetails;
