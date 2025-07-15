@@ -54,6 +54,21 @@ const CityDetails = () => {
                         <Text style={styles.cardDescription}>{cityDetails ? cityDetails.description : 'Carregando...'}</Text>
                     </View>
                 </View>
+                <View style={styles.rowBox}>
+                    <View style={styles.row}>
+                        <Image source={require('../assets/icons/Humidity1.png')}/>
+                        <Text style={styles.rowTitle}>Humidity:</Text>
+                        <Text style={styles.rowValue}>{cityDetails ? cityDetails.humidity : 'Carregando...'}%</Text>
+                    </View>
+
+                    <View style={styles.row}>
+                        <Image source={require('../assets/icons/Temperature1.png')}/>
+                        <Text style={styles.rowTitle}>Min/Max:</Text>
+                        <Text style={styles.rowValue}>{cityDetails.forecast[0].min}/{cityDetails.forecast[0].max}º</Text>
+
+                    </View>
+                </View>
+
             </View>
         </LinearGradient>
     );
@@ -118,8 +133,26 @@ const styles = StyleSheet.create({
     cardBox: {
         alignItems: 'center',
         justifyContent: 'center',
-
     },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+    },
+    rowTitle: {
+        color: '#FFF',
+        fontSize: 16,
+        fontFamily: 'Montserrat_600SemiBold',
+    },
+    rowValue: {
+        color: '#FFF',
+        fontSize: 16,
+        fontFamily: 'Montserrat_400Regular',
+        marginLeft: 'auto',
+    },
+    rowBox: {
+        gap: 8,
+    }
 })
 
 export default CityDetails;
