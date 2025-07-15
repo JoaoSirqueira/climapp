@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, useFonts} from "@expo-google-fonts/montserrat"
+import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from "@expo-google-fonts/montserrat"
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -9,7 +9,7 @@ export default function RootLayout() {
     Montserrat_700Bold
   })
 
-  if (!loaded){
+  if (!loaded) {
     return null;
   }
 
@@ -18,6 +18,9 @@ export default function RootLayout() {
       headerShown: false,
     }} />
     <Stack.Screen name="cities" options={{
+      headerShown: false,
+    }} />
+    <Stack.Screen name="[cityName]" options={{
       headerShown: false,
     }} />
   </Stack>
