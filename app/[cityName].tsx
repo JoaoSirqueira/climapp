@@ -1,10 +1,11 @@
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { LinearGradient } from "expo-linear-gradient";
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const CityDetails = () => {
+    const router = useRouter();
     const searchParams = useLocalSearchParams();
     const [cityDetails, setCityDetails] = useState(null)
 
@@ -27,42 +28,52 @@ const CityDetails = () => {
         handleData()
     }, [])
 
+    if (!cityDetails) {
+        return (
+            <LinearGradient
+                colors={["#00457D", "#05051F"]}
+                style={styles.container}
+            ></LinearGradient>
+        )
+    }
+
     return (
         <LinearGradient
             colors={["#00457D", "#05051F"]}
             style={styles.container}
         >
             <View style={styles.headerContainer}>
-                <MaterialIcons
-                    name="chevron-left"
-                    size={24} color={'#FFF'}
-                    style={styles.headerIcon}
-                />
-                <Text style={styles.headerTitle}>{cityDetails ? cityDetails.city : 'Carregando...'}</Text>
+                <TouchableOpacity onPress={() => {router.back()}} style={styles.headerIcon}>
+                    <MaterialIcons
+                        name="chevron-left"
+                        size={24} color={'#FFF'}
+                    />
+                </TouchableOpacity>
+                <Text style={styles.headerTitle}>{cityDetails.city}</Text>
             </View>
 
             <View style={styles.card}>
                 <View style={styles.cardHeader}>
                     <Text style={styles.cardHeaderTitle}>Hoje</Text>
-                    <Text style={styles.cardHeaderTitle}>{cityDetails ? cityDetails.date : 'Carregando...'}</Text>
+                    <Text style={styles.cardHeaderTitle}>{cityDetails.date}</Text>
                 </View>
 
                 <View style={styles.cardBox}>
-                    <Image style={styles.cardImage} source={require('../assets/images/Clouds.png')}/>
+                    <Image style={styles.cardImage} source={require('../assets/images/Clouds.png')} />
                     <View>
-                        <Text style={styles.cardTemperature}>{cityDetails ? cityDetails.temp : 'Carregando...'}º</Text>
-                        <Text style={styles.cardDescription}>{cityDetails ? cityDetails.description : 'Carregando...'}</Text>
+                        <Text style={styles.cardTemperature}>{cityDetails.temp}º</Text>
+                        <Text style={styles.cardDescription}>{cityDetails.description}</Text>
                     </View>
                 </View>
                 <View style={styles.rowBox}>
                     <View style={styles.row}>
-                        <Image source={require('../assets/icons/Humidity1.png')}/>
+                        <Image source={require('../assets/icons/Humidity1.png')} />
                         <Text style={styles.rowTitle}>Humidity:</Text>
-                        <Text style={styles.rowValue}>{cityDetails ? cityDetails.humidity : 'Carregando...'}%</Text>
+                        <Text style={styles.rowValue}>{cityDetails.humidity}%</Text>
                     </View>
 
                     <View style={styles.row}>
-                        <Image source={require('../assets/icons/Temperature1.png')}/>
+                        <Image source={require('../assets/icons/Temperature1.png')} />
                         <Text style={styles.rowTitle}>Min/Max:</Text>
                         <Text style={styles.rowValue}>{cityDetails.forecast[0].min}/{cityDetails.forecast[0].max}º</Text>
 
@@ -89,6 +100,7 @@ const styles = StyleSheet.create({
     headerIcon: {
         position: 'absolute',
         left: 0,
+        zIndex: 10,
     },
     headerTitle: {
         color: '#FFF',
